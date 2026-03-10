@@ -10,8 +10,8 @@ Material de aula interativo sobre as fases históricas da cooperação para o de
 
 O material apresenta oito fases da cooperação internacional para o desenvolvimento, organizadas em dois formatos:
 
-- **Quadro analítico:** tabela comparativa com período, paradigma central, conjunturas críticas, lógica da ajuda, instrumentos e atores, e críticas e limites de cada fase
-- **Linha do tempo interativa:** visualização navegável com fases (barras) e conjunturas críticas (eventos pontuais), com descrições detalhadas ao clicar
+- **Quadro analítico** — tabela comparativa com período, paradigma central, conjunturas críticas, lógica da ajuda, instrumentos e atores, e críticas e limites de cada fase
+- **Linha do tempo interativa** — visualização navegável com fases (barras) e conjunturas críticas (eventos pontuais), com descrições detalhadas ao clicar
 
 Cobre o período de Bretton Woods (1944) à Agenda 2030 (2015–2030), incluindo a Declaração de Paris (2005), a Agenda de Acra (2008), a Parceria de Busan (2011) e os 17 Objetivos de Desenvolvimento Sustentável.
 
@@ -20,9 +20,8 @@ Cobre o período de Bretton Woods (1944) à Agenda 2030 (2015–2030), incluindo
 ## Autoria
 
 **Larissa Diniz Aguiar**  
-Professora Assistente I — Departamento de Relações Internacionais, PUC Minas  
-Pesquisadora — Observatório de Cooperação Internacional
-Analista de Dados - Laboratório de Pesquisa e Projetos em Relações Internacionais
+Professora — Departamento de Relações Internacionais, PUC Minas  
+Pesquisadora — LPPRI (Laboratório de Pesquisa e Projetos em Relações Internacionais)
 
 - [LinkedIn](https://www.linkedin.com/in/larissadinizaguiar)
 - [Lattes](http://lattes.cnpq.br/9454344975691413)
@@ -51,5 +50,5 @@ PEREIRA, Máriam Trierveiler; D'AGOSTINI, Luciano Luiz Manarin; ALONSO, Joaquim 
 
 ## Licença
 
-Este material está licenciado sob [Creative Commons Atribuição 4.0 Internacional (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/deed.pt).  
-Você pode usar, adaptar e redistribuir desde que cite a autoria.
+Este material está licenciado sob [Creative Commons Atribuição-NãoComercial 4.0 Internacional (CC BY-NC 4.0)](https://creativecommons.org/licenses/by-nc/4.0/deed.pt).  
+Você pode usar, adaptar e redistribuir desde que cite a autoria e sem fins comerciais.
