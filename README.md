@@ -37,11 +37,11 @@ AYLLÓN, Bruno. O Sistema Internacional de Cooperação ao Desenvolvimento e seu
 
 AYLLÓN PINO, Bruno. Agentes transformadores da cooperação para o desenvolvimento: poderes emergentes e cooperação Sul-Sul. *Relaciones Internacionales*, Madrid, n. 40, p. 97-119, 2011.
 
-OCDE. *Declaração de Paris sobre Eficácia da Ajuda*. Paris: OCDE, 2005. DOI: 10.1787/9789264098084-en.
+OCDE. *Declaração de Paris sobre Eficácia da Ajuda*. Paris: OCDE, 2005.
 
 OCDE. *Agenda de Acra para a Acção*. Acra: OCDE/CAD, 2008.
 
-OCDE. *Parceria de Busan para uma Cooperação para o Desenvolvimento Eficaz*. Busan: OCDE, 2011. DOI: 10.1787/54de7baa-en.
+OCDE. *Parceria de Busan para uma Cooperação para o Desenvolvimento Eficaz*. Busan: OCDE, 2011.
 
 ORGANIZAÇÃO DAS NAÇÕES UNIDAS. Resolução 70/1: Transformando Nosso Mundo: a Agenda 2030 para o Desenvolvimento Sustentável. Nova York: ONU, 25 set. 2015.
 
