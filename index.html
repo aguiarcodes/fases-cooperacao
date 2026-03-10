@@ -927,14 +927,26 @@ function initTimeline() {
       detail: { title: 'Pandemia de COVID-19 (2020)', body: 'A declaração de pandemia pela OMS em 11 de março de 2020 interrompeu trajetórias de progresso nos ODS, com retrocessos documentados nos ODS 2 (fome), 3 (saúde), 8 (trabalho) e 16 (paz e justiça). A heterogeneidade dos impactos entre países reforça que o cumprimento da Agenda 2030 depende fortemente de contextos locais (Pereira; D\'Agostini; Alonso, 2026).', tipo: 'Conjuntura' } }
   ];
 
-  const allItems = [...PHASES, ...EVENTS].map(item => ({
-    ...item,
-    type: PHASES.includes(item) ? 'range' : 'point',
-    title: item.detail.title,
-    style: PHASES.includes(item)
-      ? `background-color:${item.color.background};border-color:${item.color.border};color:${item.color.border};font-weight:600;`
-      : 'background-color:#c8b89a;border-color:#7a6a50;color:#3a3020;'
+  const DECADES = [1950,1960,1970,1980,1990,2000,2010,2020,2030].map(year => ({
+    id: `dec${year}`,
+    start: `${year}-01-01`,
+    end:   `${year}-01-14`,
+    type:  'background',
+    content: '',
+    style: 'background: rgba(184,169,138,0.055); border-left: 1px solid rgba(140,120,90,0.11);'
   }));
+
+  const allItems = [...PHASES, ...EVENTS, ...DECADES].map(item => {
+    if (item.type === 'background') return item;
+    return {
+      ...item,
+      type:  PHASES.includes(item) ? 'range' : 'point',
+      title: item.detail.title,
+      style: PHASES.includes(item)
+        ? `background-color:${item.color.background};border-color:${item.color.border};color:${item.color.border};font-weight:600;`
+        : 'background-color:#c8b89a;border-color:#7a6a50;color:#3a3020;'
+    };
+  });
 
   const items = new vis.DataSet(allItems);
 
@@ -967,7 +979,7 @@ function initTimeline() {
     if (!props.items.length) { tip.classList.remove('show'); return; }
     const id = props.items[0];
     const item = allItems.find(i => i.id === id);
-    if (!item) return;
+    if (!item || item.type === 'background') return;
 
     const d = item.detail;
     tip.innerHTML = `<strong>${d.title}</strong>${d.body}<br><em>${d.tipo}</em>`;
