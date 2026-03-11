@@ -463,21 +463,26 @@ ul.cl li::before { content: '–'; position: absolute; left: 0; color: var(--rul
   overflow-x: auto;
 }
 
-/* timeline: vis-timeline cuida do pan/zoom nativamente via moveable/zoomable.
-   Basta impedir o browser de roubar os eventos touch. */
-#timeline,
-#timeline .vis-timeline,
-#timeline .vis-panel.vis-center,
-#timeline .vis-panel.vis-left,
-#timeline .vis-panel.vis-right,
-#timeline .vis-overlay {
-  touch-action: none !important;
+/* timeline wrapper — overflow-x: auto permite scroll nativo no mobile */
+#tl-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
 }
 
-/* responsivo */
+/* overlay transparente para capturar touch no mobile sem conflito com vis */
+#tl-overlay { display: none; }
 @media (max-width: 900px) {
   .page-header h2 { font-size: 1.3rem; }
   .view { padding-top: calc(var(--nav-h) + 4.5rem); }
+  #tl-overlay {
+    display: block;
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 540px;
+    z-index: 50;
+    background: transparent;
+  }
 }
 </style>
 </head>
@@ -876,6 +881,7 @@ ul.cl li::before { content: '–'; position: absolute; left: 0; color: var(--rul
   <hr class="divider">
   <div id="tl-wrap">
     <div id="timeline"></div>
+    <div id="tl-overlay"></div>
     <div id="tl-tooltip"></div>
   </div>
 
@@ -1057,6 +1063,14 @@ function initTimeline() {
 
   const timeline = new vis.Timeline(container, items, groups, options);
 
+  /* no mobile, forçar vis a renderizar o canvas interno em largura fixa —
+     sem isso vis renderiza só o que cabe na tela e o restante fica vazio */
+  var isMobile = window.innerWidth <= 900;
+  if (isMobile) {
+    timeline.setOptions({ width: '2200px', moveable: false, zoomable: false });
+    document.getElementById('timeline').style.width = '2200px';
+  }
+
   /* tooltip ao selecionar */
   const tip = document.getElementById('tl-tooltip');
 
@@ -1089,13 +1103,30 @@ function initTimeline() {
     tip.style.top  = Math.max(8, top)  + 'px';
   });
 
-  /* fechar tooltip ao tocar fora */
-  document.addEventListener('touchstart', function(e) {
-    if (!e.target.closest('.vis-item') && !e.target.closest('#tl-tooltip')) {
-      tip.classList.remove('show');
-      timeline.setSelection([]);
-    }
-  }, { passive: true });
+  /* mobile: overlay captura touch e rola o wrapper manualmente */
+  if (isMobile) {
+    var overlay = document.getElementById('tl-overlay');
+    var wrap    = document.getElementById('tl-wrap');
+    var startX, startScrollLeft;
+
+    overlay.addEventListener('touchstart', function(e) {
+      startX          = e.touches[0].clientX;
+      startScrollLeft = wrap.scrollLeft;
+    }, { passive: true });
+
+    overlay.addEventListener('touchmove', function(e) {
+      var dx = startX - e.touches[0].clientX;
+      wrap.scrollLeft = startScrollLeft + dx;
+      e.preventDefault();
+    }, { passive: false });
+
+    overlay.addEventListener('click', function(e) {
+      overlay.style.pointerEvents = 'none';
+      var el = document.elementFromPoint(e.clientX, e.clientY);
+      if (el) el.click();
+      setTimeout(function() { overlay.style.pointerEvents = ''; }, 150);
+    });
+  }
 
 } // fecha initTimeline
 </script>
