@@ -387,6 +387,86 @@ ul.cl li::before { content: '–'; position: absolute; left: 0; color: var(--rul
 .tl-swatch { width: 14px; height: 14px; border-radius: 2px; flex-shrink: 0; border: 2px solid rgba(0,0,0,0.12); }
 .tl-hint { font-size: 0.7rem; font-style: italic; color: var(--muted); margin-top: 0.6rem; font-weight: 300; }
 
+/* citação */
+.cite-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28rem;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  background: none;
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  padding: 0.18rem 0.55rem;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, border-color 0.18s;
+}
+.cite-btn:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+#cite-overlay {
+  position: fixed; inset: 0; z-index: 1090;
+  background: rgba(26,24,20,0.38);
+  opacity: 0; pointer-events: none; transition: opacity 0.22s;
+}
+#cite-overlay.show { opacity: 1; pointer-events: all; }
+
+#cite-panel {
+  position: fixed; top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(0.97);
+  z-index: 1100;
+  width: min(500px, 92vw);
+  background: var(--paper);
+  border: 1.5px solid var(--ink);
+  border-radius: 4px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.22);
+  padding: 1.4rem 1.5rem 1.2rem;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.22s, transform 0.22s;
+}
+#cite-panel.show { opacity: 1; pointer-events: all; transform: translate(-50%, -50%) scale(1); }
+
+.cite-panel-header {
+  display: flex; justify-content: space-between; align-items: baseline;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.55rem; margin-bottom: 0.9rem;
+}
+.cite-panel-title {
+  font-size: 0.63rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.18em; color: var(--muted);
+}
+.cite-close {
+  background: none; border: none; font-size: 1rem;
+  color: var(--muted); cursor: pointer; transition: color 0.15s; line-height: 1;
+}
+.cite-close:hover { color: var(--ink); }
+
+.cite-format-label {
+  font-size: 0.6rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.13em;
+  color: var(--muted); margin-bottom: 0.28rem;
+}
+.cite-text-box {
+  background: var(--cream); border: 1px solid var(--rule); border-radius: 3px;
+  padding: 0.7rem 0.8rem;
+  font-size: 0.79rem; font-weight: 400; line-height: 1.65;
+  color: var(--ink); margin-bottom: 0.6rem; word-break: break-word;
+}
+.cite-actions { display: flex; justify-content: flex-end; gap: 0.5rem; }
+.cite-copy-btn {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.68rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.12em;
+  background: var(--ink); color: var(--paper);
+  border: none; border-radius: 2px; padding: 0.38rem 0.85rem;
+  cursor: pointer; transition: background 0.18s;
+}
+.cite-copy-btn:hover { background: #3a3228; }
+.cite-copy-btn.copied { background: var(--a3); }
+  
 /* responsivo */
 @media (max-width: 900px) {
   .col-headers, .phase-row { grid-template-columns: 75px 110px 1fr; }
@@ -416,6 +496,8 @@ ul.cl li::before { content: '–'; position: absolute; left: 0; color: var(--rul
       <a href="https://www.linkedin.com/in/larissadinizaguiar" target="_blank">LinkedIn</a>
       &nbsp;&bull;&nbsp;
       <a href="http://lattes.cnpq.br/9454344975691413" target="_blank">Lattes</a>
+      &nbsp;&bull;&nbsp;
+<button class="cite-btn" onclick="openCite()">↳ Como citar</button>
     </div>
     <h2>FASES DA COOPERAÇÃO PARA O DESENVOLVIMENTO</h2>
     <div class="header-sub">Quadro analítico comparativo · 1945–2030</div>
@@ -784,6 +866,8 @@ ul.cl li::before { content: '–'; position: absolute; left: 0; color: var(--rul
       <a href="https://www.linkedin.com/in/larissadinizaguiar" target="_blank">LinkedIn</a>
       &nbsp;&bull;&nbsp;
       <a href="http://lattes.cnpq.br/9454344975691413" target="_blank">Lattes</a>
+      &nbsp;&bull;&nbsp;
+<button class="cite-btn" onclick="openCite()">↳ Como citar</button>
     </div>
     <h2>LINHA DO TEMPO INTERATIVA</h2>
     <div class="header-sub">Fases da cooperação (barras) e conjunturas críticas (eventos pontuais) &bull; Arraste para navegar &bull; Scroll para zoom &bull; Clique nos itens para detalhes</div>
@@ -1003,5 +1087,52 @@ function initTimeline() {
 }
 </script>
 
+<div id="cite-overlay" onclick="closeCite()"></div>
+<div id="cite-panel" role="dialog" aria-modal="true" aria-label="Como citar este material">
+  <div class="cite-panel-header">
+    <span class="cite-panel-title">Como citar este material</span>
+    <button class="cite-close" onclick="closeCite()" aria-label="Fechar">✕</button>
+  </div>
+
+  <div class="cite-format-label">APA / CFF</div>
+  <div class="cite-text-box" id="cite-apa">
+    Aguiar, Larissa Diniz. (2026). <em>Fases da Cooperação para o Desenvolvimento</em> [Computer software]. https://github.com/aguiarcodes/fases-cooperacaoeracao
+  </div>
+  <div class="cite-actions">
+    <button class="cite-copy-btn" onclick="copyCite('apa', this)">Copiar</button>
+  </div>
+
+  <div class="cite-format-label" style="margin-top:0.8rem">ABNT</div>
+  <div class="cite-text-box" id="cite-abnt">
+    AGUIAR, Larissa Diniz. <strong>Fases da Cooperação para o Desenvolvimento</strong>. 2026. Software. Disponível em: https://github.com/aguiarcodes/fases-cooperacao
+  </div>
+  <div class="cite-actions">
+    <button class="cite-copy-btn" onclick="copyCite('abnt', this)">Copiar</button>
+  </div>
+</div>
+
+<script>
+function openCite() {
+  document.getElementById('cite-overlay').classList.add('show');
+  document.getElementById('cite-panel').classList.add('show');
+}
+function closeCite() {
+  document.getElementById('cite-overlay').classList.remove('show');
+  document.getElementById('cite-panel').classList.remove('show');
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCite(); });
+
+const CITE_TEXT = {
+  apa:  'Aguiar, Larissa Diniz. (2026). Fases da Cooperação para o Desenvolvimento [Computer software]. https://github.com/aguiarcodes/fases-cooperacao',
+  abnt: 'AGUIAR, Larissa Diniz. Fases da Cooperação para o Desenvolvimento. 2026. Software. Disponível em: https://github.com/aguiarcodes/fases-cooperacao'
+};
+function copyCite(format, btn) {
+  navigator.clipboard.writeText(CITE_TEXT[format]).then(() => {
+    btn.textContent = 'Copiado ✓';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+</script>
 </body>
 </html>
