@@ -458,15 +458,20 @@ ul.cl li::before { content: '–'; position: absolute; left: 0; color: var(--rul
 .cite-copy-btn:hover { background: #3a3228; }
 .cite-copy-btn.copied { background: var(--a3); }
 
-/* scroll horizontal mobile - QUADRO ANALÍTICO apenas */
+/* scroll horizontal do quadro analítico */
 #view-table {
   overflow-x: auto;
 }
 
-/* timeline wrapper - SEM overflow, vis-timeline cuida do pan/zoom nativamente */
-#tl-wrap {
-  position: relative;
-  touch-action: none; /* deixa vis-timeline controlar o touch */
+/* timeline: vis-timeline cuida do pan/zoom nativamente via moveable/zoomable.
+   Basta impedir o browser de roubar os eventos touch. */
+#timeline,
+#timeline .vis-timeline,
+#timeline .vis-panel.vis-center,
+#timeline .vis-panel.vis-left,
+#timeline .vis-panel.vis-right,
+#timeline .vis-overlay {
+  touch-action: none !important;
 }
 
 /* responsivo */
