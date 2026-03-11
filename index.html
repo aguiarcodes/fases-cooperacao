@@ -146,12 +146,10 @@ hr.divider {
 
 /* quadro analítico */
 .col-headers {
-  display: grid;
-  grid-template-columns: 90px 145px 1fr 1fr 1fr 1fr;
-  border-bottom: 2px solid var(--ink);
-  padding-bottom: 0.4rem;
-  margin-bottom: 0;
-}
+position: sticky;
+top: calc(var(--nav-h) + 2.5rem);
+background: var(--paper);
+z-index: 10;
 .col-h {
   font-size: 0.64rem;
   font-weight: 600;
