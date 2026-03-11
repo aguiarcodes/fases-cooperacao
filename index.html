@@ -363,10 +363,6 @@ ul.cl li::before { content: '–'; position: absolute; left: 0; color: var(--rul
 #tl-tooltip strong { font-weight: 600; display: block; margin-bottom: 0.25rem; font-size: 0.8rem; }
 #tl-tooltip em { color: rgba(245,240,232,0.6); font-style: normal; font-size: 0.68rem; }
 
-  #timeline {
-  touch-action: none;
-}
-  
 /* legenda da linha do tempo */
 .tl-legend {
   display: flex;
@@ -461,20 +457,19 @@ ul.cl li::before { content: '–'; position: absolute; left: 0; color: var(--rul
 }
 .cite-copy-btn:hover { background: #3a3228; }
 .cite-copy-btn.copied { background: var(--a3); }
-  
-/* responsivo */
-@media (max-width: 900px) {
-  .page-header h2 { font-size: 1.3rem; }
-}
-  /* scroll horizontal mobile */
+
+/* scroll horizontal mobile */
 #view-table {
   overflow-x: auto;
 }
 #tl-wrap {
   overflow-x: auto;
 }
-  @media (max-width: 900px) {
+
+/* responsivo */
+@media (max-width: 900px) {
   .page-header h2 { font-size: 1.3rem; }
+  .view { padding-top: calc(var(--nav-h) + 4.5rem); }
   #timeline { min-width: 900px; }
 }
 </style>
@@ -495,11 +490,11 @@ ul.cl li::before { content: '–'; position: absolute; left: 0; color: var(--rul
 <div id="view-table" class="view active">
   <div class="page-header">
     <div class="header-eyebrow">Material de Aula produzido por Larissa Diniz Aguiar</div>
-<div class="header-links">
-  <a href="https://www.linkedin.com/in/larissadinizaguiar" target="_blank">LinkedIn</a>
-  <a href="http://lattes.cnpq.br/9454344975691413" target="_blank">Lattes</a>
-  <button class="cite-btn" onclick="openCite()">↳ Citar material</button>
-</div>
+    <div class="header-links">
+      <a href="https://www.linkedin.com/in/larissadinizaguiar" target="_blank">LinkedIn</a>
+      <a href="http://lattes.cnpq.br/9454344975691413" target="_blank">Lattes</a>
+      <button class="cite-btn" onclick="openCite()">↳ Citar material</button>
+    </div>
     <h2>FASES DA COOPERAÇÃO PARA O DESENVOLVIMENTO</h2>
     <div class="header-sub">Quadro analítico comparativo · 1945–2030</div>
   </div>
@@ -726,7 +721,7 @@ ul.cl li::before { content: '–'; position: absolute; left: 0; color: var(--rul
       </span>
     </div>
     <div class="cell">
-      <div class="cj"><div class="cj-dot"></div><span><span class="cj-yr">2000</span> — Cúpula do Milénio: aprovação dos ODM (8 metas, prazo 2015)</span></div>
+      <div class="cj"><div class="cj-dot"></div><span><span class="cj-yr">2000</span> — Cúpula do Milênio: aprovação dos ODM (8 metas, prazo 2015)</span></div>
       <div class="cj"><div class="cj-dot"></div><span><span class="cj-yr">2001</span> — Atentados de 11 de Setembro: segurança entra na agenda da cooperação</span></div>
       <div class="cj"><div class="cj-dot"></div><span><span class="cj-yr">2002</span> — Conferência de Monterrey: "Consenso de Monterrey" sobre financiamento do desenvolvimento</span></div>
       <div class="cj"><div class="cj-dot"></div><span><span class="cj-yr">2003</span> — Declaração de Roma sobre Harmonização: doadores coordenam procedimentos</span></div>
@@ -863,13 +858,13 @@ ul.cl li::before { content: '–'; position: absolute; left: 0; color: var(--rul
 <div id="view-timeline" class="view">
   <div class="page-header">
     <div class="header-eyebrow">Material de Aula produzido por Larissa Diniz Aguiar</div>
-<div class="header-links">
-  <a href="https://www.linkedin.com/in/larissadinizaguiar" target="_blank">LinkedIn</a>
-  <a href="http://lattes.cnpq.br/9454344975691413" target="_blank">Lattes</a>
-  <button class="cite-btn" onclick="openCite()">↳ Citar material</button>
-</div>
+    <div class="header-links">
+      <a href="https://www.linkedin.com/in/larissadinizaguiar" target="_blank">LinkedIn</a>
+      <a href="http://lattes.cnpq.br/9454344975691413" target="_blank">Lattes</a>
+      <button class="cite-btn" onclick="openCite()">↳ Citar material</button>
+    </div>
     <h2>LINHA DO TEMPO INTERATIVA</h2>
-    <div class="header-sub">Fases da cooperação (barras) e conjunturas críticas (eventos pontuais) &bull; Arraste para navegar &bull; Scroll para zoom &bull; Clique nos itens para detalhes</div>
+    <div class="header-sub">Fases da cooperação (barras) e conjunturas críticas (eventos pontuais) &bull; Arraste para navegar &bull; Scroll para zoom &bull; Toque nos itens para detalhes</div>
   </div>
   <hr class="divider">
   <div id="tl-wrap">
@@ -888,7 +883,7 @@ ul.cl li::before { content: '–'; position: absolute; left: 0; color: var(--rul
     <div class="tl-leg-item"><div class="tl-swatch" style="background:rgba(26,74,107,0.18);border-color:#1a4a6b"></div> Fase 8 — Agenda 2030 (2015–30)</div>
     <div class="tl-leg-item"><div class="tl-swatch" style="background:#c8b89a;border-color:#7a6a50"></div> Conjuntura crítica</div>
   </div>
-  <div class="tl-hint">* Clique em qualquer evento ou fase para ver descrição detalhada.</div>
+  <div class="tl-hint">* Toque ou clique em qualquer evento ou fase para ver descrição detalhada.</div>
 </div>
 
 
@@ -906,6 +901,8 @@ function switchView(v) {
 /* inicialização da linha do tempo */
 function initTimeline() {
   window._tlInit = true;
+
+  const isMobile = window.innerWidth <= 900;
 
   const groups = new vis.DataSet([
     { id: 1, content: 'Fases' },
@@ -986,28 +983,28 @@ function initTimeline() {
       detail: { title: 'Iniciativa HIPC (1996)', body: 'O BM e o FMI lançam a Heavily Indebted Poor Countries Initiative: primeiro mecanismo sistemático de alívio da dívida multilateral para 42 países pobres muito endividados. Reforçada em 1999 com maiores reduções e condicionalidade via PRSP.', tipo: 'Conjuntura' } },
     { id: 'e15', group: 2, start: '1997-07-02', content: 'Crise Asiática',
       detail: { title: 'Crise Financeira Asiática e Mínimo da APD (1997)', body: 'A crise cambial que começa na Tailândia e se alastra à Coreia do Sul, Indonésia e outros países asiáticos questiona o modelo do Consenso de Washington. No mesmo ano, a APD mundial atinge seu mínimo histórico de 43,2 biliões de dólares.', tipo: 'Conjuntura' } },
-    { id: 'e16', group: 2, start: '2000-09-08', content: 'Cúpula do Milénio / ODM',
-      detail: { title: 'Cúpula do Milénio e Objetivos de Desenvolvimento do Milénio (2000)', body: '189 países adotam os ODM: 8 metas com indicadores mensuráveis e prazo de 2015. Tornam-se o quadro de referência unificado para a cooperação para o desenvolvimento durante 15 anos, incluindo metas de redução da pobreza extrema, mortalidade infantil, educação e paridade de género.', tipo: 'Conjuntura' } },
+    { id: 'e16', group: 2, start: '2000-09-08', content: 'Cúpula do Milênio / ODM',
+      detail: { title: 'Cúpula do Milênio e Objetivos de Desenvolvimento do Milênio (2000)', body: '189 países adotam os ODM: 8 metas com indicadores mensuráveis e prazo de 2015. Tornam-se o quadro de referência unificado para a cooperação para o desenvolvimento durante 15 anos, incluindo metas de redução da pobreza extrema, mortalidade infantil, educação e paridade de género.', tipo: 'Conjuntura' } },
     { id: 'e17', group: 2, start: '2001-09-11', content: '11 de Setembro',
       detail: { title: 'Atentados de 11 de Setembro (2001)', body: 'Os ataques nos EUA introduzem a segurança como variável central da cooperação para o desenvolvimento. Afeganistão e Iraque passam a receber volumes extraordinários de APD por razões estratégicas. Gera ambiguidade sobre os objetivos reais da cooperação e inflaciona as estatísticas de APD.', tipo: 'Conjuntura' } },
     { id: 'e18', group: 2, start: '2002-03-18', content: 'Consenso de Monterrey',
-      detail: { title: 'Conferência de Monterrey e Consenso de Monterrey (2002)', body: 'Primeira grande conferência da ONU sobre financiamento do desenvolvimento. Os países ricos comprometem-se a aumentar a APD, reformar o comércio e promover o investimento privado. Portugal compromete-se a atingir 0,33% do RNB em APD até 2006. Na prática, os compromissos foram amplamente descumpridos.', tipo: 'Conjuntura' } },
+      detail: { title: 'Conferência de Monterrey e Consenso de Monterrey (2002)', body: 'Primeira grande conferência da ONU sobre financiamento do desenvolvimento. Os países ricos comprometem-se a aumentar a APD, reformar o comércio e promover o investimento privado. Na prática, os compromissos foram amplamente descumpridos.', tipo: 'Conjuntura' } },
     { id: 'e19', group: 2, start: '2003-02-25', content: 'Declaração de Roma',
       detail: { title: 'Declaração de Roma sobre Harmonização (2003)', body: 'Os principais doadores comprometem-se a harmonizar procedimentos, usar os sistemas nacionais dos países receptores e reduzir os custos de transação da ajuda fragmentada. Antecipa a Declaração de Paris (2005) sobre eficácia da ajuda.', tipo: 'Conjuntura' } },
     { id: 'e20', group: 2, start: '2005-03-02', content: 'Declaração de Paris',
-      detail: { title: 'Declaração de Paris sobre Eficácia da Ajuda (2005)', body: 'Assinada em 2 de março de 2005, a Declaração de Paris estabelece cinco princípios operacionais: ownership (países receptores definem estratégias próprias), alinhamento, harmonização, gestão por resultados e responsabilidade mútua. Inclui 12 indicadores e metas mensuráveis para 2010 (OCDE, 2005).', tipo: 'Conjuntura' } },
+      detail: { title: 'Declaração de Paris sobre Eficácia da Ajuda (2005)', body: 'Assinada em 2 de março de 2005, a Declaração de Paris estabelece cinco princípios operacionais: ownership, alinhamento, harmonização, gestão por resultados e responsabilidade mútua. Inclui 12 indicadores e metas mensuráveis para 2010 (OCDE, 2005).', tipo: 'Conjuntura' } },
     { id: 'e21', group: 2, start: '2008-09-02', content: 'Agenda de Acra',
-      detail: { title: 'Agenda de Acra para a Acção (2008)', body: 'O Programa de Ação de Acra, adotado no 3º Fórum de Alto Nível sobre Eficácia da Ajuda (Gana, 2008), aprofunda a Declaração de Paris com maior participação dos países em desenvolvimento e da sociedade civil. Reforça o princípio da transparência e da previsibilidade dos fluxos de APD (OCDE/CAD, 2008).', tipo: 'Conjuntura' } },
+      detail: { title: 'Agenda de Acra para a Acção (2008)', body: 'O Programa de Ação de Acra aprofunda a Declaração de Paris com maior participação dos países em desenvolvimento e da sociedade civil. Reforça o princípio da transparência e da previsibilidade dos fluxos de APD (OCDE/CAD, 2008).', tipo: 'Conjuntura' } },
     { id: 'e22', group: 2, start: '2008-09-15', content: 'Crise Financeira Global',
-      detail: { title: 'Crise Financeira Global (2008)', body: 'A falência do Lehman Brothers em setembro de 2008 desencadeia a maior crise financeira desde 1929. Os fluxos de APD contraem-se nos anos seguintes à medida que os países doadores enfrentam pressões orçamentais internas, agravando o desfasamento entre compromissos e desembolsos efetivos.', tipo: 'Conjuntura' } },
+      detail: { title: 'Crise Financeira Global (2008)', body: 'A falência do Lehman Brothers desencadeia a maior crise financeira desde 1929. Os fluxos de APD contraem-se nos anos seguintes à medida que os países doadores enfrentam pressões orçamentais internas.', tipo: 'Conjuntura' } },
     { id: 'e23', group: 2, start: '2011-11-29', content: 'Parceria de Busan',
-      detail: { title: 'Parceria de Busan para uma Cooperação para o Desenvolvimento Eficaz (2011)', body: 'Adotada no 4º e último Fórum de Alto Nível sobre Eficácia da Ajuda (Coreia do Sul, nov.–dez. 2011), a Parceria de Busan formaliza a transição de aid effectiveness para development effectiveness e cria a Parceria Global para uma Cooperação para o Desenvolvimento Eficaz (GPEDC), incorporando doadores emergentes, setor privado e sociedade civil (OCDE, 2011).', tipo: 'Conjuntura' } },
+      detail: { title: 'Parceria de Busan para uma Cooperação para o Desenvolvimento Eficaz (2011)', body: 'Adotada no 4º Fórum de Alto Nível sobre Eficácia da Ajuda, a Parceria de Busan formaliza a transição de aid effectiveness para development effectiveness e cria a GPEDC, incorporando doadores emergentes, setor privado e sociedade civil (OCDE, 2011).', tipo: 'Conjuntura' } },
     { id: 'e24', group: 2, start: '2015-09-25', content: 'Agenda 2030 / ODS',
-      detail: { title: 'Agenda 2030 para o Desenvolvimento Sustentável e ODS (2015)', body: 'Aprovada pela Assembleia Geral da ONU em 25 de setembro de 2015, a Agenda 2030 estabelece 17 Objetivos de Desenvolvimento Sustentável e 169 metas, com prazo até 2030. Os ODS substituem os 8 ODM e aplicam-se universalmente a todos os países. O ODS 17 (parcerias) constitui o eixo de meios de implementação dos demais objetivos (ONU, Resolução 70/1, 2015).', tipo: 'Conjuntura' } },
+      detail: { title: 'Agenda 2030 para o Desenvolvimento Sustentável e ODS (2015)', body: 'Aprovada pela Assembleia Geral da ONU em 25 de setembro de 2015, a Agenda 2030 estabelece 17 ODS e 169 metas, com prazo até 2030. Os ODS substituem os 8 ODM e aplicam-se universalmente a todos os países (ONU, Resolução 70/1, 2015).', tipo: 'Conjuntura' } },
     { id: 'e25', group: 2, start: '2015-12-12', content: 'Acordo de Paris (clima)',
-      detail: { title: 'Acordo de Paris sobre Mudanças Climáticas (2015)', body: 'Adotado na COP21, o Acordo de Paris compromete 196 partes a limitar o aquecimento global a 1,5–2 °C e a mobilizar 100 biliões de dólares por ano em financiamento climático para países em desenvolvimento. Vincula diretamente a agenda climática ao ODS 13 da Agenda 2030.', tipo: 'Conjuntura' } },
+      detail: { title: 'Acordo de Paris sobre Mudanças Climáticas (2015)', body: 'Adotado na COP21, o Acordo de Paris compromete 196 partes a limitar o aquecimento global a 1,5–2 °C e a mobilizar 100 biliões de dólares por ano em financiamento climático para países em desenvolvimento. Vincula diretamente a agenda climática ao ODS 13.', tipo: 'Conjuntura' } },
     { id: 'e26', group: 2, start: '2020-03-11', content: 'Pandemia de COVID-19',
-      detail: { title: 'Pandemia de COVID-19 (2020)', body: 'A declaração de pandemia pela OMS em 11 de março de 2020 interrompeu trajetórias de progresso nos ODS, com retrocessos documentados nos ODS 2 (fome), 3 (saúde), 8 (trabalho) e 16 (paz e justiça). A heterogeneidade dos impactos entre países reforça que o cumprimento da Agenda 2030 depende fortemente de contextos locais (Pereira; D\'Agostini; Alonso, 2026).', tipo: 'Conjuntura' } }
+      detail: { title: 'Pandemia de COVID-19 (2020)', body: 'A declaração de pandemia pela OMS interrompeu trajetórias de progresso nos ODS, com retrocessos documentados nos ODS 2 (fome), 3 (saúde), 8 (trabalho) e 16 (paz e justiça). A heterogeneidade dos impactos reforça que o cumprimento da Agenda 2030 depende fortemente de contextos locais (Pereira; D\'Agostini; Alonso, 2026).', tipo: 'Conjuntura' } }
   ];
 
   const DECADES = [1950,1960,1970,1980,1990,2000,2010,2020,2030].map(year => ({
@@ -1049,8 +1046,8 @@ function initTimeline() {
     showCurrentTime: false,
     stack: true,
     selectable: true,
-    moveable: true,
-    zoomable: true,
+    moveable: !isMobile,   /* em mobile, desativa arraste interno para o CSS scroll funcionar */
+    zoomable: !isMobile,   /* em mobile, desativa zoom interno pelo mesmo motivo */
   };
 
   const timeline = new vis.Timeline(container, items, groups, options);
@@ -1058,12 +1055,11 @@ function initTimeline() {
   /* tooltip ao selecionar */
   const tip = document.getElementById('tl-tooltip');
 
-timeline.on('select', function(props) {
+  timeline.on('select', function(props) {
     if (!props.items.length) { tip.classList.remove('show'); return; }
     const id = props.items[0];
     const item = allItems.find(i => i.id === id);
     if (!item || item.type === 'background') return;
-
     const d = item.detail;
     tip.innerHTML = `<strong>${d.title}</strong>${d.body}<br><em>${d.tipo}</em>`;
     tip.classList.add('show');
@@ -1075,21 +1071,17 @@ timeline.on('select', function(props) {
       timeline.setSelection([]);
       return;
     }
-
     const tipW = 300;
     const tipH = tip.offsetHeight || 150;
     const vw = window.innerWidth;
     const vh = window.innerHeight;
-
     let left = e.clientX + 12;
     let top  = e.clientY + 12;
-
     if (left + tipW > vw - 10) left = e.clientX - tipW - 12;
     if (top  + tipH > vh - 10) top  = e.clientY - tipH - 12;
-
     tip.style.position = 'fixed';
     tip.style.left = Math.max(8, left) + 'px';
-tip.style.top  = Math.max(8, top)  + 'px';
+    tip.style.top  = Math.max(8, top)  + 'px';
   });
 } // fecha initTimeline
 </script>
@@ -1103,7 +1095,7 @@ tip.style.top  = Math.max(8, top)  + 'px';
 
   <div class="cite-format-label">APA / CFF</div>
   <div class="cite-text-box" id="cite-apa">
-    Aguiar, Larissa Diniz. (2026). <em>Fases da Cooperação para o Desenvolvimento</em> [Computer software]. https://github.com/aguiarcodes/fases-cooperacaoeracao
+    Aguiar, Larissa Diniz. (2026). <em>Fases da Cooperação para o Desenvolvimento</em> [Computer software]. https://github.com/aguiarcodes/fases-cooperacao
   </div>
   <div class="cite-actions">
     <button class="cite-copy-btn" onclick="copyCite('apa', this)">Copiar</button>
