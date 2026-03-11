@@ -460,16 +460,24 @@ ul.cl li::before { content: '–'; position: absolute; left: 0; color: var(--rul
 
 /* scroll horizontal mobile */
 #view-table { overflow-x: auto; }
+
 #tl-wrap {
-  overflow-x: auto;
+  overflow-x: scroll;
   -webkit-overflow-scrolling: touch;
+  /* pan-x instrui o browser a tratar gestos horizontais como scroll
+     mesmo que o js interno da vis-timeline chame preventDefault */
+  touch-action: pan-x;
 }
 
 /* responsivo */
 @media (max-width: 900px) {
   .page-header h2 { font-size: 1.3rem; }
   .view { padding-top: calc(var(--nav-h) + 4.5rem); }
-  #timeline { width: 2200px; }
+  #tl-wrap { cursor: grab; }
+  #timeline {
+    width: 2400px;
+    touch-action: pan-x;
+  }
 }
 </style>
 </head>
@@ -1045,6 +1053,7 @@ function initTimeline() {
     selectable: true,
     moveable: window.innerWidth > 900,
     zoomable: window.innerWidth > 900,
+    horizontalScroll: false,
   };
 
   const timeline = new vis.Timeline(container, items, groups, options);
