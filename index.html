@@ -1054,7 +1054,7 @@ function initTimeline() {
   /* tooltip ao selecionar */
   const tip = document.getElementById('tl-tooltip');
 
-  timeline.on('select', function(props) {
+timeline.on('select', function(props) {
     if (!props.items.length) { tip.classList.remove('show'); return; }
     const id = props.items[0];
     const item = allItems.find(i => i.id === id);
@@ -1063,21 +1063,30 @@ function initTimeline() {
     const d = item.detail;
     tip.innerHTML = `<strong>${d.title}</strong>${d.body}<br><em>${d.tipo}</em>`;
     tip.classList.add('show');
-
-const cRect = container.getBoundingClientRect();
-const tipTop = cRect.top + 60;
-const tipLeft = cRect.left + Math.max(0, Math.min(cRect.width / 2 - 150, cRect.width - 320));
-tip.style.top  = tipTop + 'px';
-tip.style.left = tipLeft + 'px';
   });
 
   container.addEventListener('click', function(e) {
     if (!e.target.closest('.vis-item')) {
       tip.classList.remove('show');
       timeline.setSelection([]);
+      return;
     }
+
+    const tipW = 300;
+    const tipH = tip.offsetHeight || 150;
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+
+    let left = e.clientX + 12;
+    let top  = e.clientY + 12;
+
+    if (left + tipW > vw - 10) left = e.clientX - tipW - 12;
+    if (top  + tipH > vh - 10) top  = e.clientY - tipH - 12;
+
+    tip.style.position = 'fixed';
+    tip.style.left = Math.max(8, left) + 'px';
+    tip.style.top  = Math.max(8, top)  + 'px';
   });
-}
 </script>
 
 <div id="cite-overlay" onclick="closeCite()"></div>
