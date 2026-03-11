@@ -1061,6 +1061,13 @@ function initTimeline() {
 
   const timeline = new vis.Timeline(container, items, groups, options);
 
+  /* no mobile, forçar vis a renderizar o canvas interno em largura fixa —
+     sem isso vis renderiza só o que cabe na tela e o restante fica vazio */
+  if (window.innerWidth <= 900) {
+    timeline.setOptions({ width: '2200px', moveable: false, zoomable: false });
+    document.getElementById('timeline').style.width = '2200px';
+  }
+
   /* tooltip ao selecionar */
   const tip = document.getElementById('tl-tooltip');
 
